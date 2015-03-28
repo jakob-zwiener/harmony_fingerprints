@@ -20,6 +20,12 @@ class TestGridFinder(TestCase):
         actual_grid_size = self.findGridFor('bach', 325)
         self.assertEqual(1, actual_grid_size)
 
+        actual_grid_size = self.findGridFor('palestrina', 220)
+        self.assertEqual(2, actual_grid_size)
+
+        actual_grid_size = self.findGridFor('palestrina', 600)
+        self.assertEqual(2, actual_grid_size)
+
     def findGridFor(self, composer, score_number):
         score = corpus.parse(corpus.getComposer(composer)[score_number])
         return GridFinder(score).find_grid()
