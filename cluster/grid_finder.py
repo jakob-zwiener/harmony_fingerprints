@@ -20,10 +20,10 @@ class GridFinder(object):
 
                 if number_of_notes:
                     hits += 1
-            # use f-measure here
+            # TODO(zwiener: Use f-measure here.
             precision = hits / float(len(grid_lines))
             recall = sum / float(len(self.score.elements))
-            beta = 0
+            beta = 0.5
             beta_square = beta * beta
             f_measure = (1 + beta_square) * precision * recall / (beta_square * precision + recall)
             print grid_offset, f_measure, precision, recall
