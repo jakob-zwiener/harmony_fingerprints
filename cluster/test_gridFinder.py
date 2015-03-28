@@ -22,4 +22,4 @@ class TestGridFinder(TestCase):
 
     def findGridFor(self, composer, score_number):
         score = corpus.parse(corpus.getComposer(composer)[score_number])
-        return GridFinder(score).findGrid()
+        return GridFinder(score).find_grid()

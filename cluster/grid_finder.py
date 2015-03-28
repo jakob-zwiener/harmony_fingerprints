@@ -7,7 +7,7 @@ class GridFinder(object):
     def __init__(self, score):
         self.score = score.flat
 
-    def findGrid(self):
+    def find_grid(self):
         max = 0
         chosen_grid_offset = None
         for grid_offset in [0.125, 0.25, 0.5, 1, 2, 4]:
