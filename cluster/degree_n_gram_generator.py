@@ -27,10 +27,10 @@ class DegreeNGramGenerator(object):
             scale_degree = key.getScaleDegreeAndAccidentalFromPitch(chord.findRoot())[0]
             analyis_list.append((chord_symbol, scale_degree))
 
-        return self.to_n_grams(analyis_list)
+        return self.as_n_grams(analyis_list)
 
     # TODO(zwiener): In the future this method might be pulled up.
-    def to_n_grams(self, analysis_list):
+    def as_n_grams(self, analysis_list):
         current_n_gram = deque(maxlen=self.n)
         n_grams = []
 
