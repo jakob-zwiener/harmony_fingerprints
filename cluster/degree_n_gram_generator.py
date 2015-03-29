@@ -1,3 +1,4 @@
+from collections import defaultdict
 from collections import deque
 
 from music21 import harmony
@@ -16,7 +17,7 @@ class DegreeNGramGenerator(object):
         chordified_score = self.score.chordify().flat
         key = self.score.analyze('key')
 
-        analyis_list = []
+        analysis_list = []
         for grid_line in self.grid_lines:
             chords = chordified_score.getElementsByOffset(grid_line).getElementsByClass('Chord')
             if not chords:
@@ -25,9 +26,19 @@ class DegreeNGramGenerator(object):
 
             chord_symbol = harmony.chordSymbolFigureFromChord(chord, True)[1]
             scale_degree = key.getScaleDegreeAndAccidentalFromPitch(chord.findRoot())[0]
-            analyis_list.append((chord_symbol, scale_degree))
+            analysis_list.append((chord_symbol, scale_degree))
 
-        return self.as_n_grams(analyis_list)
+        return self.as_n_grams(analysis_list)
+
+    # TODO(zwiener): In the future this method might be pulled up.
+    def as_histogram(self, analysis_list):
+        n_grams = self.as_n_grams(analysis_list)
+        histogram = defaultdict(int)
+
+        for n_gram in n_grams:
+            histogram[n_gram] += 1
+
+        return histogram
 
     # TODO(zwiener): In the future this method might be pulled up.
     def as_n_grams(self, analysis_list):
