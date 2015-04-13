@@ -1,11 +1,9 @@
 from music21 import harmony
 
-
 __author__ = 'Jakob Zwiener'
 
 
-# TODO(zwiener): rename
-class DegreeNGramGenerator(object):
+class DegreeStatisticsGenerator(object):
 
     def get_statistics(self, grid_lines, score):
         chordified_score = score.chordify().flat

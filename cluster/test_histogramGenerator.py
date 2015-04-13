@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from mock import Mock
 
-from cluster.degree_n_gram_generator import DegreeNGramGenerator
+from cluster.degree_statistics_generator import DegreeStatisticsGenerator
 from cluster.histogram_generator import HistogramGenerator
 from cluster.n_gram_generator import NGramGenerator
 
@@ -12,7 +12,7 @@ __author__ = 'Jakob Zwiener'
 
 class TestHistogramGenerator(TestCase):
     def test_as_histogram(self):
-        statistics_generator = DegreeNGramGenerator()
+        statistics_generator = DegreeStatisticsGenerator()
         histogram_generator = HistogramGenerator(NGramGenerator(statistics_generator, 3))
         statistics_generator.get_statistics = Mock()
         statistics_generator.get_statistics.return_value = [1, 2, 3, 1, 2, 3, 7, 8, 9]
