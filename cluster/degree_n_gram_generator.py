@@ -8,17 +8,15 @@ __author__ = 'Jakob Zwiener'
 
 
 class DegreeNGramGenerator(object):
-    def __init__(self, grid_lines, score, n):
-        self.grid_lines = grid_lines
-        self.score = score
+    def __init__(self, n):
         self.n = n
 
-    def get_statistics(self):
-        chordified_score = self.score.chordify().flat
-        key = self.score.analyze('key')
+    def get_statistics(self, grid_lines, score):
+        chordified_score = score.chordify().flat
+        key = score.analyze('key')
 
         analysis_list = []
-        for grid_line in self.grid_lines:
+        for grid_line in grid_lines:
             chords = chordified_score.getElementsByOffset(grid_line).getElementsByClass('Chord')
             if not chords:
                 continue
@@ -28,11 +26,11 @@ class DegreeNGramGenerator(object):
             scale_degree = key.getScaleDegreeAndAccidentalFromPitch(chord.findRoot())[0]
             analysis_list.append((chord_symbol, scale_degree))
 
-        return self.as_n_grams(analysis_list)
+        return analysis_list
 
     # TODO(zwiener): In the future this method might be pulled up.
-    def as_histogram(self, analysis_list):
-        n_grams = self.as_n_grams(analysis_list)
+    def as_histogram(self, grid_lines, score):
+        n_grams = self.as_n_grams(grid_lines, score)
         histogram = defaultdict(int)
 
         for n_gram in n_grams:
@@ -41,11 +39,11 @@ class DegreeNGramGenerator(object):
         return histogram
 
     # TODO(zwiener): In the future this method might be pulled up.
-    def as_n_grams(self, analysis_list):
+    def as_n_grams(self, grid_lines, score):
         current_n_gram = deque(maxlen=self.n)
         n_grams = []
 
-        for entry in analysis_list:
+        for entry in self.get_statistics(grid_lines, score):
             current_n_gram.append(entry)
 
             # Wait for the n-gram to be filled.
