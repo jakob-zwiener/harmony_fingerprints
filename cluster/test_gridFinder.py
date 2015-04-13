@@ -9,6 +9,8 @@ __author__ = 'Jakob Zwiener'
 
 
 class TestGridFinder(TestCase):
+    def setUp(self):
+        self.grid_finder = GridFinder()
 
     def test_findGrid(self):
         actual_grid_size = self.findGridFor('bach', 0)
@@ -28,4 +30,4 @@ class TestGridFinder(TestCase):
 
     def findGridFor(self, composer, score_number):
         score = corpus.parse(corpus.getComposer(composer)[score_number])
-        return GridFinder(score).find_grid()
+        return self.grid_finder.find_grid(score)
