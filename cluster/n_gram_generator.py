@@ -1,4 +1,4 @@
-from collections import deque, defaultdict
+from collections import deque
 
 __author__ = 'Jakob Zwiener'
 
@@ -7,15 +7,6 @@ class NGramGenerator(object):
     def __init__(self, statistics_generator, n):
         self.statistics_generator = statistics_generator
         self.n = n
-
-    def as_histogram(self, grid_lines, score):
-        n_grams = self.as_n_grams(grid_lines, score)
-        histogram = defaultdict(int)
-
-        for n_gram in n_grams:
-            histogram[n_gram] += 1
-
-        return histogram
 
     def as_n_grams(self, grid_lines, score):
         current_n_gram = deque(maxlen=self.n)
@@ -31,3 +22,5 @@ class NGramGenerator(object):
             n_grams.append(tuple(current_n_gram))
 
         return n_grams
+
+
